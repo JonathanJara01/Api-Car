@@ -11,10 +11,18 @@ const PORT = 5000;
 
 server.get('/apiCar', (req,res)=>{
     res.send('Yo soy el get')
+    
+})
+server.get('/apiCar/:id', (req,res)=>{
+    const Car = cars.find(c=>c.id === parseInt(req.params.id));
+    if(!car) return res.status(404).send('carro no encontrado');
+    else res.send(carro);
+    res.send('Yo soy el get')
+    // holaa//
 })
 
 server.post('/apiCar', (req,res)=>{
-    res.send('Yo soy el Post')
+        res.send('Yo soy el Post')
 })
 
 server.put('/apiCar', (req,res)=>{
