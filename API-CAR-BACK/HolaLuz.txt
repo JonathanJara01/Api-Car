@@ -1,1 +1,42 @@
 Este es tu primer servidor.
+{
+Id:1
+Marca : Audi A8,
+modelo: 2023,
+color: rojo
+}
+
+{
+Id:2
+Marca :  BMW i3,
+modelo:2022,
+color:negro
+}
+
+{
+Id:3
+Marca: Renault,
+Modelo:2018,
+color:blanco
+}
+
+{
+Id:4
+Marca: Toyota Auris,
+Modelo:2020,
+color:gris
+}
+
+{
+Id:5
+Marca: Volkswagen Golf,
+Modelo:2021,
+color:amarillo
+}
+
+{
+Id:6
+Marca: Volvo,
+Modelo:2022,
+color:azul
+}
