@@ -1,28 +1,50 @@
 /* Guia */
 //Estoy Requierendo la libreria de Express
 const express = require('express');
+const HolaLuzUrl = require('./HolaLuz.txt')
 
 //Ejecuto a Express
 const server = express();
 //Asignando un puerto
 const PORT = 5000;
+const axios = require('axios');
 
+//middleware
+server.use(express.json());
 /* Rutas */
 
-server.get('/apiCar', (req,res)=>{
+async function obtenerDatosUrl (){
+    try {
+        const response = await axios.get(HolaLuzUrl);
+        return response.data;
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+server.get('/apiCar', async(req,res)=>{
+    try {
+        const allCars = await obtenerDatosUrl()
+        res.status(200).json(allCars)
+    } catch (error) {
+        res.status(500).send("no pude crear nada")
+    }
+
     res.send('Yo soy el get')
     
 })
-server.get('/apiCar/:id', (req,res)=>{
-    const Car = cars.find(c=>c.id === parseInt(req.params.id));
-    if(!car) return res.status(404).send('carro no encontrado');
-    else res.send(carro);
-    res.send('Yo soy el get')
-    // holaa//
-})
 
-server.post('/apiCar', (req,res)=>{
-        res.send('Yo soy el Post')
+server.post('/apiCar', async (req,res)=>{
+    try {
+            const {datos} = req.body
+            console.log("estos son los datos del body: ", datos)
+            
+            const responseCar = await axios.post(HolaLuz, datos)
+            res.status(200).json(responseCar.data)
+        } catch (error) {
+            res.status(500).send("no pude crear nada")
+        }
 })
 
 server.put('/apiCar', (req,res)=>{
