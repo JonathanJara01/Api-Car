@@ -1,51 +1,54 @@
-/* Guia */
-//Estoy Requierendo la libreria de Express
+// Estoy Requierendo la librería de Express
 const express = require('express');
-const HolaLuzUrl = require('./HolaLuz.txt')
+const HolaLuzData = require('./HolaLuz.json');
 
-//Ejecuto a Express
+
+// Ejecuto a Express
 const server = express();
-//Asignando un puerto
+// Asignando un puerto
 const PORT = 5000;
-const axios = require('axios');
 
-//middleware
+// Middleware
 server.use(express.json());
-/* Rutas */
-
-async function obtenerDatosUrl (){
-    try {
-        const response = await axios.get(HolaLuzUrl);
-        return response.data;
-    } catch (error) {
-        console.log(error)
-    }
-}
+server.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:5173'); // update to match the domain you will make the request from
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+  next();
+});
 
 
-server.get('/apiCar', async(req,res)=>{
-    try {
-        const allCars = await obtenerDatosUrl()
-        res.status(200).json(allCars)
-    } catch (error) {
-        res.status(500).send("no pude crear nada")
-    }
+// Rutas
+server.get('/apiCar', (req, res) => {
+  try {
+    // Responde con los datos cargados desde el archivo JSON
+    res.status(200).json(HolaLuzData);
+  } catch (error) {
+    console.error('Error al procesar la solicitud:', error.message);
+    res.status(500)
+  }
+});
 
-    res.send('Yo soy el get')
-    
-})
+
+
+
 
 server.post('/apiCar', async (req,res)=>{
     try {
-            const {datos} = req.body
-            console.log("estos son los datos del body: ", datos)
-            
-            const responseCar = await axios.post(HolaLuz, datos)
-            res.status(200).json(responseCar.data)
+            const data = req.body
+            HolaLuzData.push(data)
+            console.log("datos actualizados: ", HolaLuzData)
+             res.status(200).json(HolaLuzData)
         } catch (error) {
             res.status(500).send("no pude crear nada")
         }
-})
+});
+
+
+
+
+
 
 server.put('/apiCar', (req,res)=>{
     res.send('Yo soy el Put')

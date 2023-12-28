@@ -1,0 +1,19 @@
+[
+    {
+        "id": 1, 
+        "marca": "Audi A8", 
+        "modelo": 2023, 
+        "color": "rojo"
+        },
+        {"id": 2, 
+        "marca": "BMW i3", 
+        "modelo": 2022, 
+        "color": "negro"
+        },
+        {"id":3,
+        "Marca": "Renault",
+        "Modelo":2018,
+        "color":"blanco"
+        }
+]
+
